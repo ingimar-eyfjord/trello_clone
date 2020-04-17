@@ -59,8 +59,8 @@
             <p class="kanhead"></p>
 
             <div class="carContainer"></div>
-            <form data-form="addcardForm">
-                <button type="submit">+</button>
+            <form onsubmit="formsFunc(event)" data-form="addcardForm">
+                <button data-submitBtn type="submit">+</button>
                 <textarea name="text" class="cardText" cols="30" placeholder="Add card" rows="10" required></textarea>
             </form>
         </section>

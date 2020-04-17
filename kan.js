@@ -1,10 +1,11 @@
 window.addEventListener("DOMContentLoaded", startkan)
 window.addEventListener("DOMContentLoaded", dispkan)
 
+
 const urlKanban = "https://exercise-ea67.restdb.io/rest/kanban";
 const urlCards = "https://exercise-ea67.restdb.io/rest/cards"
+
 async function startkan() {
-    console.log("hello")
     let Kanarrayis = [];
     await fetch(urlKanban, {
         method: "get",
@@ -22,7 +23,6 @@ async function startkan() {
 }
 
 async function getCardsAPI() {
-    console.log("run check getCardsAPI ")
     let cardrrayis = [];
     await fetch(urlCards, {
         method: "get",
@@ -55,9 +55,7 @@ async function dispkan() {
     }).then(getcards);
 }
 async function getcards(what, form) {
-    console.log("run check getcards(what, form) ")
     await getCardsAPI().then(e => {
-        console.log(e)
         let cardidArr = [];
         let APIidArr = [];
         e[0].forEach(et => {
@@ -82,7 +80,6 @@ async function getcards(what, form) {
         const array5 = APIidArr.filter(function (obj) { return cardidArr.indexOf(obj) == -1; });
 
         if (what == "update") {
-            console.log("what == update")
             e[0].forEach(ey => {
                 array5.forEach(se => {
                     if (ey.id == se) {
@@ -108,11 +105,10 @@ async function getcards(what, form) {
                 form[i].disabled = false;
             }
         }
-    })
+    }).then(listenforCards)
 };
 
-function addplus() {
-    console.log("run check addplus() ")
+async function addplus() {
     const kanban = document.querySelectorAll(".Kansection");
     kanban.forEach(e => {
         if (e.querySelector(".card") != undefined) {
@@ -120,10 +116,7 @@ function addplus() {
             cardf.querySelector("textarea").setAttribute("placeholder", "Add another card");
         }
     })
-    listenforCards();
 }
-
-
 
 const hover = function () {
     const btn = this.querySelector(".edit")
@@ -151,38 +144,6 @@ const openedidmodule = function () {
 
 
 function listenforCards() {
-    console.log("run check listenforCards() ")
-    const addCforms = document.querySelectorAll(`[data-form="addcardForm"]`)
-    addCforms.forEach(e => {
-        e.addEventListener("submit", function (event) {
-            console.log("is it here")
-            event.preventDefault();
-            val = this.querySelector("textarea").value;
-            this.querySelector("textarea").value = "";
-            const form = this.getElementsByTagName("*")
-
-            for (let i = 0; i < form.length; i++) {
-                form[i].disabled = true;
-            }
-            const data = {
-                Title: val,
-                Kanban: this.parentElement.dataset.KanbanSection
-            }
-            const postData = JSON.stringify(data);
-            fetch(urlCards, {
-                method: "post",
-                headers: {
-                    "Content-Type": "application/json; charset=utf-8",
-                    "x-apikey": apikey,
-                    "cache-control": "no-cache"
-                },
-                body: postData
-            })
-            getcards("update", form);
-        }, false);
-
-    })
-
     const card = document.querySelectorAll(`.card`)
     card.forEach(e => {
         e.addEventListener("mouseover", e = hover)
@@ -200,3 +161,29 @@ function listenforCards() {
     })
 };
 
+function formsFunc(event) {
+    event.preventDefault();
+
+    that = event.target;
+    val = that.querySelector("textarea").value
+    that.querySelector("textarea").value = "";
+    const form = that.getElementsByTagName("*")
+    for (let i = 0; i < form.length; i++) {
+        form[i].disabled = true;
+    }
+    const data = {
+        Title: val,
+        Kanban: that.parentElement.dataset.KanbanSection
+    }
+    const postData = JSON.stringify(data);
+    fetch(urlCards, {
+        method: "post",
+        headers: {
+            "Content-Type": "application/json; charset=utf-8",
+            "x-apikey": apikey,
+            "cache-control": "no-cache"
+        },
+        body: postData
+    }, false);
+    getcards("update", form);
+}

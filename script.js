@@ -25,7 +25,6 @@ async function start() {
 
 async function disp() {
     const e = await start();
-    console.log(e[0])
     e[0].forEach(t => {
         const temp = document.querySelector("template").content;
         const clone = temp.cloneNode(true);
