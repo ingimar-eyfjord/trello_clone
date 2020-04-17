@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+
+    <div class="messages">
+    </div>
+
+    <div class="main">
+        <div class="cardtemp addkanban">
+            <p class="kanhead">Add a list</p>
+            <button>+</button>
+        </div>
+    </div>
+
+    <form class="chatfrom" action="chatfrom">
+        <textarea name="body" id="body" cols="30" rows="10"></textarea>
+        <button type="submit">Submit</button>
+        <button type="clear">Clear</button>
+    </form>
+
+    <template class="messagetemp">
+        <div class="message">
+            <p data-message data-messageID>Hello this is a test on how it will look like hell ya.</p>
+            <button data-meessageID="">Comment</button>
+        </div>
+    </template>
+
+    <template class="cardTemp">
+
+        <div data-cardID data-cardTitle data-cardCreato data-cardOwner data-cardLabel data-cardDueDate
+            card-cardAttachment card-cardKanban data-cardColor class="card inside whitecardtemp">
+
+            <p class="cardText">Hello this is a test on how it will look like hell ya.</p>
+
+
+            <button type="submit" data-edidbtn class="hidden edit btn btn-success">
+                <i class="fa fa-edit"></i> Edit
+            </button>
+
+        </div>
+
+    </template>
+
+    <template class="cardForm">
+
+    </template>
+
+    <template class="KanbanTemp">
+        <section data--kanban-section data-kanban-id class="Kansection cardtemp">
+            <p class="kanhead"></p>
+
+            <div class="carContainer"></div>
+            <form data-form="addcardForm">
+                <button type="submit">+</button>
+                <textarea name="text" class="cardText" cols="30" placeholder="Add card" rows="10" required></textarea>
+            </form>
+        </section>
+    </template>
+
+    <script src="script.js"></script>
+    <script src="kan.js"></script>
+</body>
+
+</html>

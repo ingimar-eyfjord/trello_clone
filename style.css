@@ -1,0 +1,153 @@
+*::-webkit-scrollbar {
+    display: none;
+    margin:0;
+    padding: 0;
+  }
+  textarea {
+    resize: none;
+    box-sizing: border-box;
+    resize: none;
+  }
+.chatfrom{
+
+    position: absolute;
+    height: 10vh;
+    bottom: 2vh;
+    width: 10vw;
+    left:0%;
+    display: flex;
+    flex-direction: column;
+    -ms-overflow-style: none;
+}
+
+.messages{
+    background-color: blue;
+    position: absolute;
+    overflow: scroll;
+    top: 2vh;
+    height: 90vh;
+    width: 10vw;
+    left: 0%;
+    display: flex;
+    text-align: left;
+    align-items: flex-start;
+    flex-direction: column;
+    -ms-overflow-style: none;
+}
+.main{
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    left: 10vw;
+    width: 90vw;
+    height: auto;
+    padding-left: 1rem;
+}
+.Kansection{
+    width: 20vw;
+    height: auto;
+    margin-right: 1rem;
+    padding: 0.5rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+.kanhead{
+    margin:0;
+    padding: 0;
+    font-weight: 800;
+    padding-top:0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+[data-form="addcardForm"]{
+    border-radius: 5px;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    padding-top: 1rem;
+    margin: 0;
+    border-radius: 20px;
+}
+[data-form="addcardForm"] > textarea{
+width: 100%;
+background-color: lightgray;
+border-style: none;
+border-radius: 20px;
+height: 20px;
+box-sizing: border-box;
+resize: none;
+}
+[data-form="addcardForm"]:hover{
+background-color: white;
+    }
+[data-form="addcardForm"] > button{
+    background-color: lightgray;
+    border-style: none; 
+     
+}
+[data-form="addcardForm"]:hover > textarea{
+    background:white;
+    outline: none!important;;
+    color: black;
+    /* height: fit-content; */
+}
+/* [data-form="addcardForm"] > textarea:focus{
+   height: fit-content;
+   outline: none!important;;
+} */
+[data-form="addcardForm"]:hover > button{
+    background: white;
+    color: gray;
+}
+
+.cardtemp{
+    border-radius: 5px;
+background-color: lightgray;
+}
+.whitecardtemp{
+    border-radius: 5px;
+    background-color: white;
+}
+
+.cardText{
+    padding: 0.5rem;
+}
+
+.hidden{
+    display: none!important;
+}
+.card{
+    position: relative;
+    padding: 0;
+    margin: 0;
+    height: auto;
+    align-items: baseline;
+}
+.card:hover{
+background-color: #e6e6e6;
+}
+.edit{
+    position: absolute;
+    right: 0.5rem;
+    bottom: 50%;
+    transform: translateY(50%);
+    background-color: transparent;
+    border-style: none;
+}
+.addkanban{
+    margin-right: 1rem;
+    width: 10vw;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.addkanban button{
+    width: 80%;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+}
