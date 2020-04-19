@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/d1dc80a86d.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -17,7 +17,7 @@
     <div class="main">
         <div class="cardtemp addkanban">
             <p class="kanhead">Add a list</p>
-            <button>+</button>
+            <button class="bigplus" data-modalfunc="options" data-modalif="open">+</button>
         </div>
     </div>
 
@@ -37,7 +37,8 @@
     <template class="cardTemp">
 
         <div data-cardID data-cardTitle data-cardCreato data-cardOwner data-cardLabel data-cardDueDate
-            card-cardAttachment card-cardKanban data-cardColor class="card inside whitecardtemp">
+            card-cardAttachment card-cardKanban data-cardColor data-cardtemplate="notactive"
+            class="card inside whitecardtemp">
 
             <p class="cardText">Hello this is a test on how it will look like hell ya.</p>
 
@@ -45,7 +46,11 @@
             <button type="submit" data-edidbtn class="hidden edit btn btn-success">
                 <i class="fa fa-edit"></i> Edit
             </button>
+            <div class="infodivs">
 
+                <div title="" class="clock displaynone"><i class="fa fa-clock"></i></div>
+                <div class="colorCircle displaynone"></div>
+            </div>
         </div>
 
     </template>
@@ -54,14 +59,48 @@
 
     </template>
 
+
+    <div class="modal options displaynone">
+        <div>
+            <p>Options</p>
+            <button data-modalfunc="options" class="close">X</button>
+            <div class="line"></div>
+        </div>
+        <div>
+            <p class="color">Color</p>
+            <input data-option="setcolor" class="colorval" type="color">
+            <div class="line"></div>
+        </div>
+        <div>
+            <p class="color">Due Date</p>
+            <input data-option="setdate" class="dateval" type="date">
+            <div class="line"></div>
+        </div>
+        <div class="deleteC displaynone">
+            <p>Delete Card</p>
+            <button data-deletebutton="card" data-modalfunc="options" data-modalif="open" class="deletebtn">X</button>
+            <div class="line"></div>
+        </div>
+    </div>
+
+
+
     <template class="KanbanTemp">
         <section data--kanban-section data-kanban-id class="Kansection cardtemp">
             <p class="kanhead"></p>
 
             <div class="carContainer"></div>
-            <form onsubmit="formsFunc(event)" data-form="addcardForm">
-                <button data-submitBtn type="submit">+</button>
+            <form onsubmit="formsFunc(event)" data-formbelongs data-colorisset data-orignalform="yes" data-duedate="no"
+                data-form="addcardForm">
+                <button data-modalfunc="options" class="bigplus" data-modalif="open" data-submitBtn
+                    type="submit">+</button>
                 <textarea name="text" class="cardText" cols="30" placeholder="Add card" rows="10" required></textarea>
+                <div data-modalfunc="options" class="optionTag">...</div>
+                <div class="infodivsfirst">
+
+                    <div title="" class="clock displaynone"><i class="fa fa-clock"></i></div>
+                    <div class="colorCircle displaynone"></div>
+                </div>
             </form>
         </section>
     </template>

@@ -1,3 +1,25 @@
+:root{
+    --lightblue: #a6cff5;
+    --darkblue: #30517d;
+    --darkroyal: #47617d;
+    --royal: #4e81c9;
+    --lightroyal: #62a2fb;
+    --danger: #C4183C;
+    --success: #17C671;
+    --warning: #FFB400;
+    --info: #00B8D8;
+    --primary: #0067F4;
+    --secondary: #5A6169;
+    --light: #E9ECEF;
+--lightgray: #17ECEf;
+    --dark: #212529;
+}
+@import url('https://fonts.googleapis.com/css?family=Rubik:400,500,900&display=swap');
+
+body{
+    background-color: var(--dark);
+    font-family: 'Rubik', sans-serif;
+}
 *::-webkit-scrollbar {
     display: none;
     margin:0;
@@ -21,7 +43,7 @@
 }
 
 .messages{
-    background-color: blue;
+    background-color: var(--light);
     position: absolute;
     overflow: scroll;
     top: 2vh;
@@ -45,7 +67,7 @@
 }
 .Kansection{
     width: 20vw;
-    height: auto;
+    height: fit-content;
     margin-right: 1rem;
     padding: 0.5rem;
     position: relative;
@@ -61,51 +83,57 @@
 }
 
 [data-form="addcardForm"]{
-    border-radius: 5px;
     width: 100%;
     height: auto;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    padding-top: 1rem;
+    display: grid;
+    grid-template-columns: 0.5fr 3fr 0.5fr;
+    grid-template-rows: 1fr 0.5fr;
     margin: 0;
-    border-radius: 20px;
+    border-radius: 5px;
+    margin-top: 1rem;
 }
 [data-form="addcardForm"] > textarea{
 width: 100%;
-background-color: lightgray;
+background-color: var(--light);
 border-style: none;
-border-radius: 20px;
-height: 20px;
+border-radius: 5px;
+height: 50px;
 box-sizing: border-box;
 resize: none;
 }
+[data-form="addcardForm"] > span{
+    padding-right: 0;
+    padding-left: 0;
+    padding: 0.5rem;
+    width: 100%;
+    outline: none;
+    background-color: white;
+    border-style: none;
+    border-radius: 5px;
+    width: 100%;
+    height: auto;
+    box-sizing: border-box;
+    }
+
 [data-form="addcardForm"]:hover{
 background-color: white;
     }
 [data-form="addcardForm"] > button{
-    background-color: lightgray;
+    background-color: var(--light);
     border-style: none; 
-     
 }
 [data-form="addcardForm"]:hover > textarea{
     background:white;
     outline: none!important;;
     color: black;
-    /* height: fit-content; */
 }
-/* [data-form="addcardForm"] > textarea:focus{
-   height: fit-content;
-   outline: none!important;;
-} */
 [data-form="addcardForm"]:hover > button{
     background: white;
-    color: gray;
 }
 
 .cardtemp{
     border-radius: 5px;
-background-color: lightgray;
+background-color: var(--light);
 }
 .whitecardtemp{
     border-radius: 5px;
@@ -114,6 +142,7 @@ background-color: lightgray;
 
 .cardText{
     padding: 0.5rem;
+    border-radius: 5px;
 }
 
 .hidden{
@@ -125,10 +154,10 @@ background-color: lightgray;
     margin: 0;
     height: auto;
     align-items: baseline;
+    box-sizing: border-box;
+    word-wrap: break-word
 }
-.card:hover{
-background-color: #e6e6e6;
-}
+
 .edit{
     position: absolute;
     right: 0.5rem;
@@ -150,4 +179,195 @@ background-color: #e6e6e6;
     width: 80%;
     margin-top: 1vh;
     margin-bottom: 1vh;
+}
+
+[data-form="addcardForm"]:focus{
+display: flex;
+flex-direction: column;
+}
+[data-form-state="edit"]> button{
+background-color: white;
+}
+[data-submit-btn]{
+    border-radius: 5px;
+    font-weight: 900;
+    font-size: 1.5rem;
+    margin: 0;
+    padding:0;
+    padding-left: 5px;
+}
+[data-cardstate="edit"]{
+margin-block-start: 1em;
+margin-block-end: 1em;}
+
+[data-cardstate="edit"] > [data-edidbtn]{
+display: none;
+}
+
+
+[data-edidbtn]{
+    background-color: white;
+    border-radius: 2px;
+    padding: 0.5rem;
+}
+
+.modal{
+    width: 20vw;
+    height: auto;
+    position: absolute;
+    z-index: 9999;
+    background-color: var(--light);
+    border-radius: 5px;
+    background-color: white;
+    box-shadow:  5px 5px 14px #464646, 
+    -5px -5px 14px #bababa;
+    display: grid;
+    grid-template-rows: 1fr 2fr;
+    text-align: center;
+    align-items: center;
+    padding-bottom: 2rem;
+}
+.modal > div{
+ display: grid;
+ position: relative;
+ grid-template-columns:1fr 3fr 1fr;
+}
+.modal > div > p{
+    grid-column: 2;
+}
+.modal > div > button{
+    grid-column: 3;
+    background-color: transparent;
+    border-style: none;
+    font-weight: 900;
+}
+.modal > div > .line{
+    position: absolute;
+    grid-column: span 3;
+    display: block;
+    height: 2px;
+    width: 70%;
+    background-color: var(--dark);
+    bottom: 0;
+    justify-self: center;
+}
+.displaynone{
+    display: none!important;
+}
+.infodivs, .infodivsfirst{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: auto;
+}
+.infodivsfirst{
+    bottom: 0;
+    grid-column: span 3;
+}
+.clock{
+    width: auto;
+    height: 1rem;
+    padding: 0.4rem;
+    color: var(--secondary);
+    display: flex;
+    flex-direction: row;
+    white-space: nowrap;
+}
+.clock > i{
+    margin-right: 0.5rem;
+}
+.colorCircle{
+    margin: 0.4rem;
+    display: block;
+    width: 4rem;
+    height: 1rem;
+    border-radius: 5px;
+    background-color: #00B8D8;
+}
+
+form:hover{
+    background-color: white;
+}
+[data-nohover]:hover{
+background-color: transparent!important;
+}
+[data-orignalform]{
+    position: relative;
+}
+
+.colorval{
+    border-style: none;
+    padding: 0;
+    border-color: transparent;
+    -webkit-appearance: unset;
+    background-color: unset;
+    border-image: unset;
+    border-width: unset;
+    width: 2vw;
+    height: 2vw;
+    justify-self: center;
+    align-self: center;
+    text-rendering: unset;
+    color:unset;
+    letter-spacing: unset;
+    word-spacing: unset;
+    text-transform: unset;
+    text-indent: unset;
+    text-shadow: unset;
+    margin-right: 5rem;
+}
+.dateval{
+    align-items: unset;
+    display: -webkit-inline-flex;
+    font-family: monospace;
+    padding-inline-start: 1px;
+    cursor: default;
+    overflow: hidden;
+    padding: 0px;
+    text-rendering: auto;
+    color: -internal-light-dark-color(black, white);
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: start;
+    -webkit-appearance: textfield;
+    background-color: -internal-light-dark-color(white, black);
+    -webkit-rtl-ordering: logical;
+    cursor: text;
+    margin: 0em;
+    font: 400 13.3333px Arial;
+    padding: 1px 0px;
+    border-width: 2px;
+    border-style: none;
+    border-color: unset;
+    border-image: unset;
+    width: 8.5vw;
+    margin-right: 1.5rem;
+    justify-self: center;
+    align-self: center;
+}
+.bigplus{
+    font-weight: 900;
+    font-size: 1.5rem;
+    margin: 0;
+    padding: 0;
+    border-radius: 5px;
+    color: var(--secondary);
+}
+textarea{
+    margin-top: 1rem;
+    font-family: 'Rubik', sans-serif;
+}
+textarea:focus{
+outline: none;
+}
+.optionTag{
+    margin-top: 0.5rem;
+    font-size: 1.5rem;
+    font-weight: 900;
+    cursor: pointer;
+    color: var(--secondary);
 }
