@@ -15,12 +15,14 @@
     </div>
 
     <div class="main">
+
         <div class="cardtemp addkanban">
             <p class="kanhead">Add a list</p>
-            <button class="bigplus" data-modalfunc="options" data-modalif="open">+</button>
+            <button data-addkanbanlist class="bigplus">+</button>
         </div>
-    </div>
 
+    </div>
+    <!-- data-modalfunc="options" data-modalif="open" -->
     <form class="chatfrom" action="chatfrom">
         <textarea name="body" id="body" cols="30" rows="10"></textarea>
         <button type="submit">Submit</button>
@@ -61,18 +63,21 @@
 
 
     <div class="modal options displaynone">
+
+
+
         <div>
             <p>Options</p>
             <button data-modalfunc="options" class="close">X</button>
             <div class="line"></div>
         </div>
-        <div>
-            <p class="color">Color</p>
+        <div class="colorOption displaynone">
+            <p class="colorOption displaynone">Color</p>
             <input data-option="setcolor" class="colorval" type="color">
             <div class="line"></div>
         </div>
-        <div>
-            <p class="color">Due Date</p>
+        <div class="duedateOption displaynone">
+            <p class="duedateOption displaynone">Due Date</p>
             <input data-option="setdate" class="dateval" type="date">
             <div class="line"></div>
         </div>
@@ -81,13 +86,21 @@
             <button data-deletebutton="card" data-modalfunc="options" data-modalif="open" class="deletebtn">X</button>
             <div class="line"></div>
         </div>
+        <div class="deletkanban displaynone">
+            <p>Delete Kanban</p>
+            <button data-deletebutton="kanban" data-modalfunc="options" data-modalif="open" class="deletebtn">X</button>
+            <div class="line"></div>
+        </div>
     </div>
 
 
 
     <template class="KanbanTemp">
         <section data--kanban-section data-kanban-id class="Kansection cardtemp">
-            <p class="kanhead"></p>
+            <div class="kanheaddiv">
+                <p class="kanhead"> </p>
+                <div data-modalfunc="options" data-modal="kanban" class="optionTag">...</div>
+            </div>
 
             <div class="carContainer"></div>
             <form onsubmit="formsFunc(event)" data-formbelongs data-colorisset data-orignalform="yes" data-duedate="no"
@@ -95,7 +108,7 @@
                 <button data-modalfunc="options" class="bigplus" data-modalif="open" data-submitBtn
                     type="submit">+</button>
                 <textarea name="text" class="cardText" cols="30" placeholder="Add card" rows="10" required></textarea>
-                <div data-modalfunc="options" class="optionTag">...</div>
+                <div data-modalfunc="options" data-modal="bottom" class="optionTag">...</div>
                 <div class="infodivsfirst">
 
                     <div title="" class="clock displaynone"><i class="fa fa-clock"></i></div>

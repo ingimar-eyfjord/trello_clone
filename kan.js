@@ -1,4 +1,3 @@
-window.addEventListener("DOMContentLoaded", startkan)
 window.addEventListener("DOMContentLoaded", dispkan)
 const urlKanban = "https://exercise-ea67.restdb.io/rest/kanban";
 const urlCards = "https://exercise-ea67.restdb.io/rest/cards"
@@ -34,7 +33,7 @@ async function getCardsAPI() {
     }
     return cardrrayis;
 }
-async function dispkan() {
+async function dispkan(what) {
     await startkan().then(e => {
         e[0].forEach(e => {
             const temp = document.querySelector(".KanbanTemp").content;
@@ -42,6 +41,7 @@ async function dispkan() {
             const section = clone.querySelector(".Kansection");
             section.dataset.KanbanSection = e.Header;
             section.dataset.kanbanId = e._id;
+            clone.querySelector(`[data-modal="kanban"]`).dataset.kanbanId = e._id;
             const header = clone.querySelector(".kanhead")
             header.textContent = e.Header;
             const kandepo = document.querySelector(".main")
@@ -140,7 +140,6 @@ async function getcards(what, form) {
         }
     }).then(listenforCards)
 };
-
 async function addplus() {
     const kanban = document.querySelectorAll(".Kansection");
     kanban.forEach(e => {
@@ -299,8 +298,6 @@ function formsFuncEdit(event) {
             listenforCards()
         });
 }
-
-
 const option = function () {
     const wrapper = this.parentElement
     const parent = wrapper.parentElement
@@ -349,7 +346,6 @@ const option = function () {
         }
     })
 }
-
 const modalfunction = function () {
     const x = event.pageX;
     const y = event.pageY;
@@ -357,16 +353,49 @@ const modalfunction = function () {
     thisModal.dataset.modalbelongs = this.parentElement.parentElement.dataset.cardid
     thisModal.style.top = y + "px";
     thisModal.style.left = x + "px";
-
+    if (this.dataset.modal == "kanban") {
+        const dbtn = thisModal.querySelector(`[data-deletebutton="kanban"]`)
+        dbtn.dataset.kanbanId = this.dataset.kanbanId
+        const deleted = thisModal.querySelectorAll(".deletkanban");
+        deleted.forEach(e => {
+            e.classList.remove("displaynone")
+        })
+        const color = thisModal.querySelectorAll(".colorOption");
+        color.forEach(e => {
+            e.classList.add("displaynone")
+        })
+        const date = thisModal.querySelectorAll(".duedateOption");
+        date.forEach(e => {
+            e.classList.add("displaynone")
+        })
+    } else {
+        const color = thisModal.querySelectorAll(".colorOption");
+        color.forEach(e => {
+            e.classList.remove("displaynone")
+        })
+        const date = thisModal.querySelectorAll(".duedateOption");
+        date.forEach(e => {
+            e.classList.remove("displaynone")
+        })
+    }
     if (this.dataset.modalif == "open") {
         if (!thisModal.classList.contains("displaynone"))
             thisModal.classList.add("displaynone");
+        const deleted = thisModal.querySelectorAll(".deletkanban");
+        deleted.forEach(e => {
+            e.classList.add("displaynone")
+        })
     }
     else {
-        if (thisModal.classList.contains("displaynone"))
+        if (thisModal.classList.contains("displaynone")) {
             thisModal.classList.remove("displaynone");
+        }
         else {
             thisModal.classList.add("displaynone");
+            const deleted = thisModal.querySelectorAll(".deletkanban");
+            deleted.forEach(e => {
+                e.classList.add("displaynone")
+            })
         }
         thisModal.dataset.formbelongs = this.parentElement.dataset.formbelongs
 
@@ -374,19 +403,39 @@ const modalfunction = function () {
         document.querySelector(".dateval").addEventListener("change", e = option)
     }
     if (this.parentElement.parentElement.dataset.cardstate == "edit") {
-        const deleted = thisModal.querySelector(".deleteC");
-        deleted.classList.remove("displaynone")
-    } else {
-        const deleted = thisModal.querySelector(".deleteC");
-        deleted.classList.add("displaynone")
+        const deleted = thisModal.querySelectorAll(".deleteC");
+        deleted.forEach(e => {
+            e.classList.remove("displaynone")
+        })
     }
+    else {
+        const deleted = thisModal.querySelectorAll(".deleteC");
+        deleted.forEach(e => {
+            e.classList.add("displaynone")
+        })
+        const color = thisModal.querySelectorAll(".colorOption");
+        color.forEach(e => {
+            e.classList.add("displaynone")
+        })
+        const date = thisModal.querySelectorAll(".duedateOption");
+        date.forEach(e => {
+            e.classList.add("displaynone")
+        })
+    }
+    if (thisModal.dataset.modal == "bottom") {
+        const color = thisModal.querySelectorAll(".colorOption");
+        color.forEach(e => {
+            e.classList.remove("displaynone")
+        })
+        const date = thisModal.querySelectorAll(".duedateOption");
+        date.forEach(e => {
+            e.classList.remove("displaynone")
+        })
+    }
+
 }
-
-
-
 function listenforCards() {
     const card = document.querySelectorAll(`.card`)
-
     card.forEach(e => {
         if (e.dataset.cardstate == "rest") {
             e.addEventListener("mouseover", e = hover)
@@ -397,7 +446,6 @@ function listenforCards() {
             e.addEventListener("mouseleave", e = out)
         }
     })
-
     const addCformsheihgt = document.querySelectorAll(`.cardText`)
     addCformsheihgt.forEach(e => {
         e.addEventListener("input", e = fixheight)
@@ -410,27 +458,79 @@ function listenforCards() {
     modal.forEach(e => {
         e.addEventListener("click", modalfunction)
     });
+    clearforms()
 };
-
-function formsFunc(event) {
+function clearforms() {
+    const options = document.querySelector(".options")
+    const inputs = options.querySelectorAll("input")
+    inputs.forEach(e => {
+        e.value = "";
+    }
+    )
+}
+document.querySelector(`[data-addkanbanlist]`).addEventListener("click", Kanbantransform)
+function Kanbantransform(event) {
+    that = event.target;
+    parent = event.target.parentElement;
+    event.target.style.display = "none";
+    const form = document.createElement("form")
+    form.addEventListener("submit", formsFunc)
+    form.dataset.kanbanform = "kanban";
+    const btn = document.createElement("button")
+    btn.setAttribute("type", "submit");
+    btn.textContent = " +"
+    btn.classList.add("bigplus")
+    btn.classList.add("kanbtn")
+    const thisspan = document.createElement("span");
+    thisspan.classList.add("input");
+    thisspan.setAttribute("role", "textbox");
+    thisspan.contentEditable = true;
+    thisspan.style.backgroundColor = "white"
+    thisspan.classList.add("kanbanadd")
+    parent.classList.add("grow")
+    parent.querySelector("p").textContent = "Add a title"
+    form.appendChild(thisspan)
+    form.appendChild(btn)
+    parent.appendChild(form)
+}
+async function formsFunc(event) {
     event.preventDefault();
     that = event.target;
-    const color = that.dataset.colorisset;
-    const dueDate = that.dataset.duedate;
-    val = that.querySelector("textarea").value
-    that.querySelector("textarea").value = "";
-    const form = that.getElementsByTagName("*")
-    for (let i = 0; i < form.length; i++) {
-        form[i].disabled = true;
+    if (that.dataset.form == "addcardForm") {
+        const color = that.dataset.colorisset;
+        const dueDate = that.dataset.duedate;
+        val = that.querySelector("textarea").value
+        that.querySelector("textarea").value = "";
+        const form = that.getElementsByTagName("*")
+        for (let i = 0; i < form.length; i++) {
+            form[i].disabled = true;
+        }
+        const data = {
+            Title: val,
+            Kanban: that.parentElement.dataset.KanbanSection,
+            Color: color,
+            Due_date: dueDate
+        }
+        const postData = JSON.stringify(data);
+        await post(urlCards, postData).then(getcards("update", form))
+        that.dataset.colorisset = "";
+        that.dataset.duedate = "";
+        that.style.backgroundColor = "transparent";
+        for (let i = 0; i < form.length; i++) {
+            form[i].style.backgroundColor = "transparent";
+        }
+    } else {
+        const span = that.querySelector("span");
+        const data = {
+            Header: span.textContent,
+            kanban: 1,
+        }
+        const postData = JSON.stringify(data);
+        await post(urlKanban, postData)
     }
-    const data = {
-        Title: val,
-        Kanban: that.parentElement.dataset.KanbanSection,
-        Color: color,
-        Due_date: dueDate
-    }
-    const postData = JSON.stringify(data);
-    fetch(urlCards, {
+}
+async function post(url, postData) {
+    fetch(url, {
         method: "post",
         headers: {
             "Content-Type": "application/json; charset=utf-8",
@@ -438,25 +538,74 @@ function formsFunc(event) {
             "cache-control": "no-cache"
         },
         body: postData
-    }, false);
-    getcards("update", form);
-    that.dataset.colorisset = "";
-    that.dataset.duedate = "";
-    that.style.backgroundColor = "transparent";
-    for (let i = 0; i < form.length; i++) {
-        form[i].style.backgroundColor = "transparent";
+    }).then(res => res.json())
+        .then(data => {
+            if (data.kanban == 1) {
+                const temp = document.querySelector(".KanbanTemp").content;
+                const clone = temp.cloneNode(true);
+                const section = clone.querySelector(".Kansection");
+                section.dataset.KanbanSection = data.Header;
+                section.dataset.kanbanId = data._id;
+                const header = clone.querySelector(".kanhead")
+                header.textContent = data.Header;
+                clone.querySelector(`[data-modal="kanban"]`).dataset.kanbanId = data._id;
+                const kandepo = document.querySelector(".main")
+                section.querySelector("form").dataset.formbelongs = data.Header;
+                kandepo.appendChild(clone)
+            } else if (data.list) {
+                if (data.list[0].message[1] == "UNIQUE") {
+                    alert("Kanban name already in use")
+                }
+            }
+        })
+
+}
+const deletefunc = async function () {
+    if (this.dataset.deletebutton == "kanban") {
+        deletefuncAPI(urlKanban, this.dataset.kanbanId)
+        deletecards(this.dataset.kanbanId)
+    } else {
+        deletefuncAPI(urlCards, this.parentElement.parentElement.dataset.modalbelongs)
+        removeCard("card", this.parentElement.parentElement.dataset.modalbelongs)
     }
 }
 
-
-const deletefunc = function () {
-    deletefuncAPI(urlCards, this.parentElement.parentElement.dataset.modalbelongs)
+function deletecards(id) {
+    const chart = document.querySelector(`[data-kanban-id="` + id + `"]`)
+    const card = chart.querySelectorAll(".card")
+    let array = [];
+    console.log(array)
+    card.forEach(e => {
+        array.push(e.dataset.cardid)
+    })
+    deleteAllcards(array)
 }
-document.querySelector(`[data-deletebutton]`).addEventListener("click", e = deletefunc)
+
+function deleteAllcards(id) {
+    // Array is an array of Id's you want to delete
+    const postData = JSON.stringify(array);
+    // Put in URL endpoint
+    fetch(urlCards + "/*", {
+        method: "delete",
+        headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            'x-apikey': apikey,
+            "cache-control": "no-cache"
+        },
+        //The body needs hold the arrays of the ID
+        body: postData
+    }).then(res => res.json())
+        .then(data => {
+            console.log(data)
+        })
+    removeCard("kan", id)
+}
+const Deletebtn = document.querySelectorAll(`[data-deletebutton]`)
+Deletebtn.forEach(e => {
+    e.addEventListener("click", e = deletefunc)
+})
 
 function deletefuncAPI(url, id) {
-    console.log(id.toString())
-    console.log(`` + url + `/` + id.toString() + ``)
     fetch(url + "/" + id.toString(), {
         method: "delete",
         headers: {
@@ -465,9 +614,13 @@ function deletefuncAPI(url, id) {
             "cache-control": "no-cache"
         }
     })
-        .then(removeCard(id))
 }
-function removeCard(id) {
-    const card = document.querySelector(`[data-cardid="` + id + `"]`)
-    card.remove()
+function removeCard(what, id) {
+    if (what == "card") {
+        const card = document.querySelector(`[data-cardid="` + id + `"]`)
+        card.remove()
+    } else {
+        const card = document.querySelector(`[data-kanban-id="` + id + `"]`)
+        card.remove()
+    }
 }

@@ -19,6 +19,8 @@
 body{
     background-color: var(--dark);
     font-family: 'Rubik', sans-serif;
+width: auto;
+overflow: scroll;
 }
 *::-webkit-scrollbar {
     display: none;
@@ -31,7 +33,6 @@ body{
     resize: none;
   }
 .chatfrom{
-
     position: absolute;
     height: 10vh;
     bottom: 2vh;
@@ -174,6 +175,7 @@ background-color: var(--light);
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding: 1rem;
 }
 .addkanban button{
     width: 80%;
@@ -212,7 +214,7 @@ display: none;
 }
 
 .modal{
-    width: 20vw;
+    width: auto;
     height: auto;
     position: absolute;
     z-index: 9999;
@@ -225,7 +227,7 @@ display: none;
     grid-template-rows: 1fr 2fr;
     text-align: center;
     align-items: center;
-    padding-bottom: 2rem;
+    padding: 2rem;
 }
 .modal > div{
  display: grid;
@@ -314,7 +316,6 @@ background-color: transparent!important;
     text-transform: unset;
     text-indent: unset;
     text-shadow: unset;
-    margin-right: 5rem;
 }
 .dateval{
     align-items: unset;
@@ -345,9 +346,10 @@ background-color: transparent!important;
     border-color: unset;
     border-image: unset;
     width: 8.5vw;
-    margin-right: 1.5rem;
     justify-self: center;
     align-self: center;
+    margin-left: 4rem;
+    margin-right: 1rem;
 }
 .bigplus{
     font-weight: 900;
@@ -370,4 +372,43 @@ outline: none;
     font-weight: 900;
     cursor: pointer;
     color: var(--secondary);
+}
+
+[data-kanbanform="kanban"]{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    background-color: white;
+}
+.kanbanadd{
+    height: 2vh;
+    padding-top: 1rem;
+    width: 100%;
+    outline: none;
+    border-radius: 5px;
+    text-align: center;
+}
+.grow{
+    animation: grow 0.2s forwards ease-in-out;
+}
+@keyframes grow{
+    to{
+        width: 15vw;
+    }
+}
+.kanbtn{
+    border: none;
+    border-style: none;
+    background-color: white;
+}
+.kanheaddiv{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    align-items: baseline;
 }
